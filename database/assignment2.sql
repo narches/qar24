@@ -3,11 +3,12 @@
 
 --DATABASE ASSIGNMENT TASK 2
 
-
---Account Information
-DROP TYPE IF EXISTS public.account_type;
 CREATE TYPE public.account_type AS ENUM
     ('Client', 'Employee', 'Admin');
+
+ALTER TYPE public.account_type
+    OWNER TO q24;
+
 
 
 --Table Structure for table 'classification'
@@ -61,7 +62,7 @@ VALUES ('Custom'),
        ('Sport'),
        ('SUV'),
        ('Truck'),
-       ('Sedan'),
+       ('Sedan');
 
 -- Data for table `inventory`
 
