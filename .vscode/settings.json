@@ -1,3 +1,17 @@
 {
-    "iis.configDir": ""
+    "iis.configDir": "",
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "q24",
+            "connectString": "postgresql://qdb_8fml_user:T7A20NXLfrkwYpbgeoT8dMq11iYcOp6X@dpg-crom4gl6l47c73fpn14g-a.frankfurt-postgres.render.com/qdb_8fml"
+        }
+    ]
 }

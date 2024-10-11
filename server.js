@@ -6,15 +6,15 @@
  * Require Statements
  *************************/
 const session = require("express-session");
-// const pool = require('./database/');
+const pool = require('./database/');
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const env = require("dotenv").config()
 const app = express()
-// const utilities = require("./utilities/")
+const utilities = require("./utilities/")
 const statics = require("./routes/statics")
- const baseController = require('./controllers/baseController')
-// const inventoryRoute = require('./routes/inventoryRoute');
+const baseController = require('./controllers/baseController')
+const inventoryRoute = require('./routes/inventoryRoute');
 // const accountRoute = require('./routes/accountRoute')
 // const mgtRoute = require('./routes/mgtRoute')
 // const accountController = require('./controllers/accountController');
@@ -68,14 +68,9 @@ app.set("layout", "./layouts/layout") // not at views root
 
 app.use(require("./routes/statics"))
 //Index Route
-
-app.get("/", function(req, res){
-  res.render("index", {titile: "Home"})
-})
-
-//app.get("/", baseController.buildHome)
+app.get("/", utilities.handleErrors(baseController.buildHome))
 //Inventory routes
-//app.use("/inv", inventoryRoute)
+app.use("/inv", inventoryRoute)
 //Account routes
 //app.use("/account", accountRoute)
 //Management Page
@@ -84,6 +79,21 @@ app.get("/", function(req, res){
 //app.post('/signup', accountController.registerAccount);
 
 
+
+/* *************************************
+  Express Error handler
+  This middleware will catch and display any errors that occur during the request-response cycle.
+*************************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  if(err.status == 404){ message = err.message} else {message = 'Page Not Found'}
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message,
+    nav
+  })
+})
 
 /* ***********************
  * Local Server Information

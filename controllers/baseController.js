@@ -1,9 +1,9 @@
-//const utilities = require("../utilities")
+const utilities = require("../utilities")
 const baseController = {}
 
 baseController.buildHome = async function(req, res){
   const nav = await utilities.getNav()
-  req.flash("notice", "Login")
+  //req.flash("notice", "Login")
   res.render("index", {title: "Home", nav})
 
 }
