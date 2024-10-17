@@ -8,17 +8,19 @@
     padding: .4rem 0;
     }
 
-
     h2{
-        color: black;
+        color: #00cbe6;
         font-weight: 900;
         background-color: transparent;
+        text-align: center;
+        margin-bottom: 30px;
+        margin-top: 15px;
     }
 
     .notice{
         text-align: left;
         margin: 10px;
-        color: black;
+        color: rgba(253, 1, 1, 0.886);
     }
 
     .note{
@@ -46,6 +48,7 @@
     form label.top, form div {
         display: block;
         padding-top: 1rem;
+        padding-left: 1rem;
         color: rgba(0, 0, 0, 0.804);
         font-size: .8rem;
     }

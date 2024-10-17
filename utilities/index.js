@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const jwt = require("jsonwebtoken")
 const util = {}
 
 /* ************************
@@ -65,7 +66,6 @@ util.buildClassificationGrid = async function(data){
   
 
 // DETAIL PAGE
-
 util.buildVehicleDetailsHTML = async function (vehicleData) {
     return `
       <div class="vehicle-details">
@@ -83,7 +83,68 @@ util.buildVehicleDetailsHTML = async function (vehicleData) {
 };
 
 
+// Deliver Login View
+util.buildLogin = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/login", {
+    title: "Login",
+    nav,
+  })
+}
 
+
+util.buildSign = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/signup", {
+    title: "Register",
+    nav,
+  })
+}
+
+
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+   jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    function (err, accountData) {
+     if (err) {
+      req.flash("Please log in")
+      res.clearCookie("jwt")
+      return res.redirect("/account/login")
+     }
+     res.locals.accountData = accountData
+     res.locals.loggedin = 1
+     next()
+    })
+  } else {
+   next()
+  }
+ }
+
+
+ util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+   jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    function (err, accountData) {
+     if (err) {
+      req.flash("Please Create an Account")
+      res.clearCookie("jwt")
+      return res.redirect("/account/signup")
+     }
+     res.locals.accountData = accountData
+     res.locals.loggedin = 1
+     next()
+    })
+  } else {
+   next()
+  }
+ }
 
 /* ****************************************
  * Middleware For Handling Errors
