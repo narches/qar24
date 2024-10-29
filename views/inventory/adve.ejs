@@ -1,0 +1,43 @@
+
+
+
+<h4><%- messages() %></h4>
+<br>
+<!-- Display errors if needed -->
+<% if (errors) { %>
+    <ul class="notice">
+ <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+<%  }) %>
+   </ul>
+<% } %>
+
+
+<br>
+<br>
+
+
+<% if (title) { %>
+    <h2><%= title %></h2>
+<% } else {res.redirect('/')} %>
+
+
+<form  action="/inv/adve" method="post">
+    <fieldset>
+        <label for="classificationList" class="top">Vehicle Class
+            <%- classificationList %>
+        </label>
+        <label class="top">  Make* <input type="text" id="invMake" name="inv_make" required minlength="3" placeholder="Min of 3 characters" value="<%= locals.inv_make %>"></label>
+        <label class="top">  Model* <input type="text" id="invModel" name="inv_model" required required minlength="3" placeholder="Min of 3 characters" value="<%= locals.inv_model %>" ></label>
+        <label class="top">  Description*<textarea id="invDescription" name="inv_description" required><% if(locals.inv_description) { %><%= locals.inv_description %><% } %></textarea></label>
+        <label class="top">  Image Path* <input type="file" id="invImage" name="inv_image" size="30" required></label>
+        <label class="top">  Thumbnail Path* <input type="file" id="invThumbnail" name="inv_thumbnail" size="30" required></label>
+        <label class="top">  Price* <input type="number" id="invPrice" name="inv_price" size="10" placeholder="decimal or integer numbers only" required pattern="^[1-9]\d*(\.\d+)?$"></label>
+        <label class="top">  Year* <input type="number" id="invYear" name="inv_year" size="10" placeholder="4-digit year" required minlength="4" maxlength="4" pattern="^(19|20)\d{2}"></label>
+        <label class="top">  Miles* <input type="number" id="invMiles" name="inv_miles" size="10" placeholder="digits only" required pattern="^(\d+$)"></label>
+        <label class="top">  Color* <input type="text" id="invColor" name="inv_color" required></label>
+    </fieldset>
+    <input type="submit" value="Add Vehicle" class="submitBtn">
+    <br>
+</form>
+

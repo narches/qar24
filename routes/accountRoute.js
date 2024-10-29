@@ -1,29 +1,26 @@
 // Needed Resources 
-const express = require("express")
-const router = new express.Router()
-const accountController = require("../controllers/accountController")
-const regValidate = require("../utilities/account-validation")
-const utilities = require("../utilities")
+const express = require("express");
+const router = new express.Router();
+const accountController = require('../controllers/accountController');
+const regValidate = require('../utilities/account-validation');
+const utilities = require('../utilities');
 
 
 // Deliver Login View
-router.get("/login", utilities.handleErrors(accountController.buildLogin))
-
+router.get('/login', utilities.handleErrors(accountController.buildLogin))
 
 // Process the login request
 router.post(
   "/login",
-  (req,res) => {
-  // regValidate.loginRules(),
-  // regValidate.checkLoginData,
-  // utilities.handleErrors(accountController.accountLogin)
-         res.status(200).send('login process')
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  (req, res) => {
+    res.status(200).send('login process')
   }
 )
 
 //Deliver SignUp View
-router.get("/signup", utilities.handleErrors(accountController.buildRegister))
-
+router.get('/signup', utilities.handleErrors(accountController.buildRegister))
 
 // Process the registration data
 router.post(
@@ -34,16 +31,16 @@ router.post(
 )
 
 // Deliver Account Login View
-router.get("/accmgt", utilities.handleErrors(accountController.accountLogin))
+// router.get("/amanager", utilities.handleErrors(accountController.accountLogin))
 
 // Process the Account Login View
-router.post(
-  "/accmgt",
-  (req, res) => {
-    res.status(200).send("You're Logged in")
-  }
-)
+// router.post(
+//   "/amanager",
+//   (req, res) => {
+//     res.status(200).send("You're Logged in")
+//   }
+// )
 
-//router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccmgt))
+// router.get("/", utilities.checkLogin(accountController.buildAccmgt))
 
 module.exports = router;

@@ -5,22 +5,22 @@
 /* ***********************
  * Require Statements
  *************************/
-const session = require("express-session");
+const session = require('express-session');
 const pool = require('./database/');
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const env = require("dotenv").config()
-const app = express()
+const app = express();
+const { validationResult } = require("express-validator");
 const utilities = require("./utilities/");
 const statics = require("./routes/statics");
 const baseController = require('./controllers/baseController');
+const invController = require('./controllers/invController');
 const inventoryRoute = require('./routes/inventoryRoute');
 const accountRoute = require('./routes/accountRoute');
-// const mgtRoute = require('./routes/mgtRoute');
 const accountController = require('./controllers/accountController');
 const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
-
 /* ***********************
  * View Engine
  *************************/
@@ -31,8 +31,9 @@ app.set("layout", "./layouts/layout") // not at views root
 
 
 /* ***********************
- * Middleware
- * ************************/
+ Middleware
+ *************************/
+
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -52,23 +53,27 @@ app.use(function(req, res, next){
   next()
 })
 
-app.use(bodyParser.urlencoded({ extended: true }));
 
 //Parse JSON bodies
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 //cookieParser
 app.use(cookieParser());
 
-app.use(utilities.checkJWTToken)
+//JWTToken
+// app.use(utilities.checkJWTToken)
 
-/* ***********************
- * Routes
- *************************/
 
+
+ //Routes
 app.use(require("./routes/statics"));
+
 //Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome));
+
+
 //Inventory routes
 app.use("/inv", require("./routes/inventoryRoute"));
 
@@ -76,20 +81,14 @@ app.use("/inv", require("./routes/inventoryRoute"));
 //Account routes
 app.use("/account", require("./routes/accountRoute"));
 
-//Management Page
-//app.use("/mgt", mgtRoute)
-
-app.post('/account/signup', utilities.handleErrors(accountController.registerAccount));
-
-
 
 
 //File Not Found Route- must be last route in list
-
 app.use((req, res, next) => {
   let nav = utilities.getNav()
     next({status: 404, message: "Sorry, Page Not Found!"})
   })
+
 
 /* *************************************
   Express Error handler
@@ -99,7 +98,7 @@ app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   if(err.status == 404){ message = err.message} else {message = 'Page Not Found'}
-  res.render("errors/error", {
+  res.render("errs/error", {
     title: err.status || 'Server Error',
     message,
     nav

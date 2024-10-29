@@ -1,0 +1,28 @@
+<br>
+<br>
+<br>
+<br>
+<h4><%- messages() %></h4>
+<br>
+<!-- Display errors if needed -->
+<% if (errors) { %>
+    <ul class="notice">
+ <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+<%  }) %>
+   </ul>
+<% } %>
+
+<br>
+
+<% if (title) { %>
+<h2><%= title %></h2>
+<% } else {res.redirect('/')} %>
+
+<form  action="/inv/adclass" method="post">
+    <fieldset>
+        <label class="top"> Classificatiion Name* <input type="text" id="classification_name" name="classification_name" required pattern="^[A-Za-z]+$" title="Name must be alphabetic characters only with no space"></label>
+        <br>
+        <input type="submit" value="Add Classification" class="submitBtn">  
+    </fieldset>
+</form>

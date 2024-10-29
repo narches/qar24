@@ -1,8 +1,7 @@
 
-
 <h4><%- messages() %></h4>
 
-<!-- Display errors if needed -->
+
 <% if (errors) { %>
     <ul class="notice">
         <% errors.array().forEach(error => { %>
@@ -14,20 +13,16 @@
    </ul>
 <% } %>
 
-<br>
-<br>
-<br>
+
 <form action="/account/login" method="post">
     <fieldset>
         <% if (title) { %>
             <h2><%= title %></h2>
-        <% } else {res.redirect('/')} %>
-
-        <label class="top"> Email* <input type="email" id="account_ëmail" name="account_email" required pattern="[a-zA-Z0-9._%+-]+@byui\.edu$" title="Email"></label>
-        <label class="top" for="accountPassword"> Password <input type="password" name="account_password" id="account_password" name="password" required minlength="12" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" title=""></label>
+          <% } else {res.redirect('/')} %>
+        <label class="top"> Email* <input type="email" id="account_email" name="account_email" required pattern="[a-zA-Z0-9._%+-]+@byui\.edu$" title="Email"></label>
+        <label class="top"> Password <input type="password" name="account_password" id="account_password" required minlength="12" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" title=""></label>
         <br>
         <input type="submit" value="Login" class="submitBtn">  
     </fieldset>
-      
-      <label class="sbs"> No Account? <a href="/account/signup" > Sign Up </a></label>
-  </form>
+    <label class="sbs"> No Account? <a href="/account/signup" > Sign Up </a></label>
+</form>

@@ -46,7 +46,7 @@ validate.registrationRules = () => {
         .isLength({min: 2})
         .withMessage("Last Name is required"),
 
-            // valid email is required and cannot already exist in the database
+        // valid email is required and cannot already exist in the database
         body("account_email")
         .trim()
         .isEmail()
@@ -71,10 +71,9 @@ validate.registrationRules = () => {
 
 
 /* ******************************
- * Check data and return errors or continue to registration
- * ***************************** */
+  Check data and return errors or continue to registration
+ ****************************** */
 validate.checkLoginData = async (req, res, next) => {
-  console.log(req.body)
     const { account_email, account_password} = req.body
     let errors = []
     errors = validationResult(req)
@@ -86,7 +85,6 @@ validate.checkLoginData = async (req, res, next) => {
         nav,
         account_email,
         account_password,
-        
       })
       return
     }
@@ -96,10 +94,9 @@ validate.checkLoginData = async (req, res, next) => {
 
 
 /* ******************************
- * Check data and return errors or continue to registration
- * ***************************** */
+Check data and return errors or continue to registration
+ ****************************** */
 validate.checkRegData = async (req, res, next) => {
-  console.log(req.body)
     const { account_firstname, account_lastname, account_email } = req.body
     let errors = []
     errors = validationResult(req)
