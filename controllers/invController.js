@@ -59,14 +59,13 @@ invCont.buildAdclass = async function (req, res, next) {
 
 //Classification List
 invCont.buildAdve = async function (req, res, next) {
-  const classification_id = req.params.classification_id;
-  const classificationList = await utilities.buildClassificationList(classification_id);
+  const classificationList = await utilities.buildClassificationList();
     let nav = await utilities.getNav();
   res.render("./inventory/adve",{
     title: "Add New Vehicle",
     nav,
-    classificationList,
     errors: null,
+    classificationList,
   })
 }
 
