@@ -171,8 +171,8 @@ util.buildAdve = async function (req, res, next) {
   res.render("inventory/adve",{
     title: "Add New Vehicle",
     nav,
-    classificationList,
     errors: null,
+    classificationList,
   })
 }
 
@@ -185,8 +185,8 @@ util.addVehicle = async function (req, res, next) {
   res.render("inventory/adve",{
     title: "Add New Vehicle",
     nav,
-    classificationList,
     errors: null,
+    classificationList,
   })
 }
 
@@ -197,57 +197,38 @@ util.addVehicle = async function (req, res, next) {
 /* ****************************************
 Middleware to check token validity
 **************************************** */
-// util.checkJWTToken = (req, res, next) => {
-//   if (req.cookies.jwt) {
-//    jwt.verify(
-//     req.cookies.jwt,
-//     process.env.ACCESS_TOKEN_SECRET,
-//     function (err, accountData) {
-//     if (err) {
-//       req.flash("Please log in")
-//       res.clearCookie("jwt")
-//       return res.redirect("/account/login")
-//     }
-//     res.locals.accountData = accountData
-//     res.locals.loggedin = 1
-//     next()
-//     })
-//   } else {
-//    next()
-//   }
-// }
+util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+   jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    function (err, accountData) {
+    if (err) {
+      req.flash("Please log in")
+      res.clearCookie("jwt")
+      return res.redirect("/account/login")
+    }
+    res.locals.accountData = accountData
+    res.locals.loggedin = 1
+    next()
+    })
+  } else {
+   next()
+  }
+}
 
-// /* ****************************************
+
+/****************************************
 // Check Login
-//  ************************************* */
-// util.checkLogin = (req, res, next) => {
-//   if (res.locals.loggedin) {
-//     next()
-//   } else {
-//     req.flash("notice", "Please log in.")
-//     return res.redirect("/account/login")
-//   }
-// }
-
-// util.checkJWTToken = (req, res, next) => {
-//   if (req.cookies.jwt) {
-//    jwt.verify(
-//     req.cookies.jwt,
-//     process.env.ACCESS_TOKEN_SECRET,
-//     function (err, accountData) {
-//      if (err) {
-//       req.flash("Please Create an Account")
-//       res.clearCookie("jwt")
-//       return res.redirect("/account/signup")
-//      }
-//      res.locals.accountData = accountData
-//      res.locals.loggedin = 1
-//      next()
-//     })
-//   } else {
-//    next()
-//   }
-// }
+/************************************* */
+util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+}
 
 
 
