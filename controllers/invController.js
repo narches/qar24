@@ -77,7 +77,7 @@ Deliver Admin login view
 invCont.adminLogin = async function(req, res, next) {
   let nav = await utilities.getNav()
   req.flash("notice", "Login as Admin")
-  res.render("./inventory/admin", {
+  res.render("inventory/admin", {
     title: "Admin",
     nav,
     errors: null,
