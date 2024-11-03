@@ -1,0 +1,41 @@
+
+
+
+<h4><%- messages() %></h4>
+<br>
+<!-- Display errors if needed -->
+<% if (errors) { %>
+    <ul class="notice">
+ <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+<%  }) %>
+   </ul>
+<% } %>
+
+
+<br>
+<br>
+
+
+<% if (title) { %>
+    <h2><%= title %></h2>
+<% } else {res.redirect('/')} %>
+
+
+<form id="editForm" action="/inv/update" method="post">
+    <fieldset>
+        <label class="top">  First Name* <input type="text" id="account_firstname" name="account_firstname" required minlength="3" placeholder="Min of 3 characters" <% if(locals.account_firstname) { %> value="<%= locals.account_firstname %>"
+            <% } %>></label>
+
+        <label class="top">  Last Name* <input type="text" id="account_firstname" name="account_lastname" required required minlength="3" placeholder="Min of 3 characters" <% if(locals.account_lastname) { %> value="<%= locals.account_lastname %>"
+            <% } %> ></label>
+        
+        <label class="top">  Email* <input type="email" id="account_ëmail" name="account_email"  required pattern="[a-zA-Z0-9._%+-]+@byui\.edu$" <% if(locals.account_email) { %> value="<%= locals.account_email %>" <% } %>></label>
+
+        <label <input type="hidden" id="accountID" name="account_id" required <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+            <% } %>></label>
+    </fieldset>
+    <input type="submit" value="Edit Account
+</form>
+
+

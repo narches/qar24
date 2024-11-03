@@ -1,9 +1,9 @@
 /* ******************************************
- * This server.js file is the primary file of the 
- * application. It is used to control the project.
+This server.js file is the primary file of the 
+ application. It is used to control the project.
  *******************************************/
 /* ***********************
- * Require Statements
+Require Statements
  *************************/
 const session = require('express-session');
 const pool = require('./database/');
@@ -21,8 +21,9 @@ const accountRoute = require('./routes/accountRoute');
 const accountController = require('./controllers/accountController');
 const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
+
 /* ***********************
- * View Engine
+View Engine
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
@@ -31,7 +32,7 @@ app.set("layout", "./layouts/layout") // not at views root
 
 
 /* ***********************
- Middleware
+Middleware
  *************************/
 
 app.use(session({
@@ -106,14 +107,14 @@ app.use(async (err, req, res, next) => {
 })
 
 /* ***********************
- * Local Server Information
- * Values from .env (environment) file
+Local Server Information
+Values from .env (environment) file
  *************************/
 const port = process.env.PORT
 const host = process.env.HOST
 
 /* ***********************
- * Log statement to confirm server operation
+ Log statement to confirm server operation
  *************************/
 app.listen(port, () => {
   console.log(`App listening on ${host}:${port}`)

@@ -22,9 +22,9 @@
 <% } else {res.redirect('/')} %>
 
 
-
-<form id="registerForm" action="/inv/adve" method="post">
+<form id="deleteForm" action="/inv/delete" method="post">
     <fieldset>
+        <h5>Confirm Deletion - The delete is permanent.</h5>
         <label for="classificationList" class="top">Vehicle Class
             <%- classificationLists %>
         </label>
@@ -52,7 +52,14 @@
         
         <label class="top">  Color* <input type="text" id="invColor" name="inv_color" required <% if(locals.inv_color) { %> value="<%= locals.inv_color %>"
             <% } %>></label>
+
+        <label <input type="hidden" id="invId" name="inv_id" required <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+            <% } %>></label>
     </fieldset>
-    <input type="submit" value="Add Vehicle" class="submitBtn">
+    <input type="submit" value="Update Vehicle" class="submitBtn">
     <br>
 </form>
+
+
+
+<script src="../../js/edit.js"></script>

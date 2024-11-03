@@ -31,6 +31,18 @@ async function buildRegister(req, res, next) {
 }
 
 
+//Account Management
+async function buildAMgt(req, res, next) {
+  let nav = await utilities.getNav()
+  req.flash("notice", "You're logged in")
+  res.render("account/amanager", {
+    title: "Account Management",
+    nav,
+    errors: null,
+  })
+}
+
+
 
 /* ****************************************
 Process Registration
@@ -68,13 +80,14 @@ async function registerAccount(req, res) {
     res.status(201).render("account/login", {
       title: "Login",
       nav,
+      errors: null,
     })
   } else {
     req.flash("notice", "Sorry, the registration failed.")
     res.status(501).render("account/signup", {
       title: "Registration",
       nav,
-      errors:null
+      errors: null,
     })
   }
 }
@@ -105,7 +118,7 @@ async function accountLogin(req, res) {
       } else {
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
-      return res.redirect("/account/")
+      return res.redirect("account/amanager")
     }
     else {
       req.flash("message notice", "Please check your credentials and try again.")
@@ -121,15 +134,64 @@ async function accountLogin(req, res) {
   }
 }
 
-//Account Management
-// async function buildAmanagement(req, res, next) {
-//   let nav = await utilities.getNav()
-//   req.flash("notice")
-//   res.render("account/amanager", {
-//     title: "Account Management",
-//     nav,
-//     errors: null,
-//   })
-// }
-  
-module.exports = {buildLogin, buildRegister, registerAccount, accountLogin}
+
+
+
+
+/* ***************************
+Build edit Account view
+ *************************** */
+async function accountUpdate (req, res, next) {
+  let nav = await utilities.getNav()
+  const itemData = await accountModel.getAccountByEmail(account_email)
+  res.render("/account/edit", {
+    title:
+    nav,
+    errors: null,
+    account_id: itemData.account_id,
+    account_firstname: itemData.account_firstname,
+    account_lastname: itemData.account_lastname,
+    account_email: itemData.account_email
+  })
+}
+
+
+
+/* ***************************
+ Update Account Data
+*************************** */
+async function updateAccount (req, res, next) {
+  let nav = await utilities.getNav()
+  const {
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  } = req.body
+  const aupdateResult = await accountModel.updateAccount(
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  )
+
+  if (aupdateResult) {
+    const itemName = aupdateResult.account_firstname + " " + aupdateResult.account_firstname
+    req.flash("notice", `The ${itemName} was successfully updated.`)
+    res.redirect("/account/")
+  } else {
+    req.flash("notice", "Sorry, the insert failed.")
+    res.status(501).render("account/aupdate", {
+    nav,
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+    })
+  }
+}
+
+
+
+
+module.exports = {buildLogin, buildRegister, registerAccount, accountLogin, buildAMgt, accountUpdate, updateAccount }

@@ -8,7 +8,7 @@ Constructs the nav HTML unordered list
 util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
   let list = "<ul id='navigate'>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
+  //list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
     list += "<li>"
     list +=
@@ -80,6 +80,7 @@ util.buildVehicleDetailsHTML = async function (vehicleData) {
 };
 
 
+
 util.buildLogin = async function (req, res, next) {
   let nav = await utilities.getNav()
   res.render("account/login", {
@@ -89,9 +90,11 @@ util.buildLogin = async function (req, res, next) {
   })
 }
 
+
+
 /* ****************************************
 Deliver Sign Up view
-**************************************** */
+// **************************************** */
 util.buildRegister = async function (req, res, next) {
   let nav = await utilities.getNav()
   res.render("account/signup", {
@@ -131,6 +134,29 @@ util.buildClassificationList = async function (classification_id = null) {
   })
   classificationList += "</select>"
   return classificationList
+}
+
+
+//Build management View
+util.buildMgt = async function (req, res, next) {
+  const classificationLists = await utilities.buildClassificationList();
+  let nav = await utilities.getNav()
+  res.render("inventory/management", {
+    title: "Vehicle Management",
+    nav,
+    errors: null,
+    classificationLists,
+  })
+}
+
+//Buld Admin Mgt View
+util.adminMgt = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("inventory/admanager", {
+    title: "Acccount Management",
+    nav,
+    errors: null,
+  })
 }
 
 
@@ -181,55 +207,98 @@ Deliver Vehicle view
 **************************************** */
 util.addVehicle = async function (req, res, next) {
   let nav = await utilities.getNav();
-  let classificationList = await utilities.buildClassificationList();
+  let classificationLists = await utilities.buildClassificationList();
   res.render("inventory/adve",{
     title: "Add New Vehicle",
     nav,
     errors: null,
-    classificationList,
+    classificationLists: classificationLists,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+    classification_id
   })
 }
 
 
-//Register Account
+
 
 
 /* ****************************************
 Middleware to check token validity
 **************************************** */
-util.checkJWTToken = (req, res, next) => {
-  if (req.cookies.jwt) {
-   jwt.verify(
-    req.cookies.jwt,
-    process.env.ACCESS_TOKEN_SECRET,
-    function (err, accountData) {
-    if (err) {
-      req.flash("Please log in")
-      res.clearCookie("jwt")
-      return res.redirect("/account/login")
-    }
-    res.locals.accountData = accountData
-    res.locals.loggedin = 1
-    next()
-    })
-  } else {
-   next()
-  }
-}
+// util.checkJWTToken = (req, res, next) => {
+//   if (req.cookies.jwt) {
+//    jwt.verify(
+//     req.cookies.jwt,
+//     process.env.ACCESS_TOKEN_SECRET,
+//     function (err, accountData) {
+//     if (err) {
+//       req.flash("Please log in")
+//       res.clearCookie("jwt")
+//       return res.redirect("/account/login")
+//     }
+//     res.locals.accountData = accountData
+//     res.locals.loggedin = 1
+//     next()
+//     })
+//   } else {
+//    next()
+//   }
+// }
 
 
 /****************************************
 // Check Login
-/************************************* */
-util.checkLogin = (req, res, next) => {
-  if (res.locals.loggedin) {
-    next()
-  } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
-  }
+// /************************************* */
+// util.checkLogin = (req, res, next) => {
+//   if (res.locals.loggedin) {
+//     next()
+//   } else {
+//     req.flash("notice", "Please log in.")
+//     return res.redirect("/account/login")
+//   }
+// }
+
+
+
+
+util.adminLogin = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/admin", {
+    title: "Admin",
+    nav,
+    errors: null,
+  })
 }
 
+/* ****************************************
+Deliver Admin Register view
+**************************************** */
+util.adminRegister = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/asignup", {
+    title: "Register Admin",
+    nav,
+    errors: null,
+  })
+}
+
+//Register View
+util.registerAdmine = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("account/signup", {
+    title: "Register",
+    nav,
+    errors: null,
+  })
+}
 
 
 

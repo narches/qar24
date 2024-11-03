@@ -3,20 +3,9 @@
 <br>
 <br>
 
-<% if (errors) { %>
-    <ul class="notice">
-        <% errors.array().forEach(error => { %>
-            <% console.log(error.msg); %>
-            <% if(error.msg != "Invalid value") { %>
-                <li><%= error.msg %></li>
-            <% } %>
-        <%  }) %>
-   </ul>
-<% } %>
 
 
-
-<form action="/account/login" method="post">
+<form action="/inv/admin" method="post">
     <fieldset>
         <% if (title) { %>
             <h2><%= title %></h2>
@@ -26,5 +15,5 @@
         <br>
         <input type="submit" value="Login" class="submitBtn">  
     </fieldset>
-    <label class="sbs"> No Account? <a href="/account/signup" > Sign Up </a></label>
+    <label class="sbs"> No Account? <a href="/inv/isignup" > Sign Up </a></label>
 </form>

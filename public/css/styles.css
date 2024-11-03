@@ -30,6 +30,11 @@ nav ul {
   justify-content:space-evenly;
 }
 
+h5{
+  color: red;
+  font-style: italic;
+}
+
 nav li {
   list-style:none;
   text-align:center;
@@ -57,7 +62,6 @@ nav li {
 mgt ul {
   display:flex;
   list-style:none;
-  /* background: black; */
   text-align:center;
   color: #00cbe6;
   margin-top: 15%;
@@ -285,34 +289,17 @@ header span a :hover {
 }
 
 #tools{
-  color:#00cbe6;
   text-align: right;
-  padding:10px;
 }
-
-#tools a:hover {
-  color: black;
-  background-color: white;
-  transition:.3s;
-  text-decoration:none;
-}
-
-
-.mobile-menu {
-  display:none;
-}
-
-#menu li a:hover {
+.account{
   color:#00cbe6;
-  background-color:black;
-  transform:scale(1.1);
-  transition:.3s;
-  text-decoration:none;
+  text-align: center;
+  border: 1px solid white;
+  font-weight:400px;
+  background-color:transparent;
 }
 
-.moveDown {
-  margin-top:3em
-}
+
 
 button {
   color: #00cbe6;
@@ -375,7 +362,6 @@ details{
   margin: 5px;
   padding-right: 10px;
 }
-
 
 h3 {
 background-color:black;
@@ -470,33 +456,6 @@ color:#0ADDF5
 display:none;
 }
 
-#hamburger-icon {
-display:block;
-cursor:pointer;
-color: black;
-}
-
-.open .bar1 {
-transform:rotate(-45deg) translate(-6px,6px)
-}
-
-.open .bar2 {
-opacity:0
-}
-
-.open .bar3 {
-transform:rotate(45deg) translate(-6px,-8px)
-}
-
-.open .mobile-menu {
-  display:flex;
-  flex-direction: column;
-  text-align:center;
-  transition:.5s;
-  margin: 10px;
-  padding: 5px;
-}
-
 
 
 .hero-label {
@@ -544,33 +503,7 @@ a:hover {
 }
 }
 }
-/******* Change Box Model ***************/
 
-/**(c) NNACHI JOSEPH OTU**/
-
-@import "https://fonts.googleapis.com/css2?family=Onest:wght@300&display=swap";
-*{
-    padding: 0;
-    margin: 0;
-}
-
-body {
-  text-align:center;
-  color: #00cbe6;
-  font-family:'Onest',Courier New,monospace,Arial,sans-serif
-}
-
-/* header a {
-  color: #00cbe6;
-  border-bottom: 2px solid #00cbe6;
-}
-
-header a:hover {
-    background: white;
-    transition:.3s ease;
-    color: black;
-    border-bottom: none;
-} */
     
 #cards{
     display: grid;
@@ -580,6 +513,25 @@ header a:hover {
     padding: 2px;
 }
 
+bt a {
+  color: red;
+  padding: 5px 10px;
+  background-color: transparent;
+  border: 1px solid black;
+  float: right;
+  margin-right: 20px;
+}
+
+
+bt a:hover {
+  color: black;
+  padding: 5px 10px;
+  background-color: transparent;
+  border: 1px solid red;
+  float: right;
+  margin-right: 20px;
+  border-radius: 10px;
+}
 
 mgt ul {
   display:flex;
@@ -1074,7 +1026,6 @@ a:hover {
 
 /**(c) NNACHI JOSEPH OTU**/
 
-@import "https://fonts.googleapis.com/css2?family=Onest:wght@300&display=swap";
 *{
     padding: 0;
     margin: 0;
@@ -1589,8 +1540,6 @@ a:hover {
 /******* Change Box Model ***************/
 
 /**(c) NNACHI JOSEPH OTU**/
-
-@import "https://fonts.googleapis.com/css2?family=Onest:wght@300&display=swap";
 *{
     padding: 0;
     margin: 0;
@@ -1898,7 +1847,7 @@ button:hover{
 }
 }
 
-@media all and (min-width: 300px) and (max-width: 700px) {
+@media all and (min-width: 200px) and (max-width: 700px) {
 #container {
   margin-top:5%;
   margin-bottom:5%
@@ -1935,6 +1884,23 @@ button:hover{
 details{
   margin: 5px;
   padding-right: 10px;
+}
+
+mgt ul a {
+  color: #00cbe6;
+  width: 40%;
+  height: 10px;
+  padding: 10px;
+  background-color: black;
+  font-size: medium;
+  margin: 20px;
+}
+
+mgt ul a:hover {
+  background: transparent;
+  color: black;
+  border: 2px solid black;
+  border-radius: 9px;
 }
 
 
@@ -2041,45 +2007,11 @@ color:#0ADDF5
 display:none;
 }
 
-#hamburger-icon {
-display:block;
-cursor:pointer;
-color: black;
-}
 
-.open .bar1 {
-transform:rotate(-45deg) translate(-6px,6px)
-}
-
-.open .bar2 {
-opacity:0
-}
-
-.open .bar3 {
-transform:rotate(45deg) translate(-6px,-8px)
-}
-
-.open .mobile-menu {
-  display:flex;
-  flex-direction: column;
-  text-align:center;
-  transition:.5s;
-  margin: 10px;
-  padding: 5px;
-}
-
-#hamburger-icon div {
-width:35px;
-height:3px;
-background-color: black;
-margin:6px 0;
-transition:.4;
-}
 
 mgt ul {
   display: block;
   list-style:none;
-  /* background: black; */
   text-align:center;
   color: #00cbe6;
   margin-top: 20px;
@@ -2099,13 +2031,6 @@ button:hover{
  border-radius: 9px;
 }
 
-#mode {
-  position:absolute;
-  top:  3.3rem;
-  right: 0px;
-  font-size:8px;
-  cursor:pointer;
-}
 
 
 .hero-label {

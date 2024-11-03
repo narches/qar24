@@ -1,22 +1,39 @@
-<!-- Content Heading  -->
+
+
+<h4><%- messages() %></h4>
 <br>
 <br>
 <br>
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
+
 <% if (title) { %>
-<h2><%= title %></h2>
-<% } else {res.redirect('/')} %>
+    <h2><%= title %></h2>
+  <% } else {res.redirect('/')} %>
 <mgt>
     <ul>
+        <br>
+        <br>
         <li><a href="/inv/adclass" title="Add New Classification"> Add New Classificatiion </a></li>
         <br>
         <br>
         <li><a href="/inv/adve" title="Add New Vehicle"> Add New Vehicle </a></li>
     </ul>
+    <br>
+    <br>
+    <br>
+
+    <h2>Manage Inventory</h2>
+    <p>Choose a class of vehicles to see inventory items</p>
+    <%- classificationLists %>
+
+    <table id="inventoryDisplay"></table>
+
+
+    <noscript> JavaScript must be enabled to use this page.</noscript>
 </mgt>
+
+
+
+<script src="../../public/js/inventory.js"></script>
