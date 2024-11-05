@@ -1,6 +1,6 @@
 /* ******************************************
 This server.js file is the primary file of the 
- application. It is used to control the project.
+application. It is used to control the project.
  *******************************************/
 /* ***********************
 Require Statements
@@ -16,9 +16,11 @@ const utilities = require("./utilities/");
 const statics = require("./routes/statics");
 const baseController = require('./controllers/baseController');
 const invController = require('./controllers/invController');
+const bookController = require('./controllers/bookController');
+const accountController = require('./controllers/accountController');
 const inventoryRoute = require('./routes/inventoryRoute');
 const accountRoute = require('./routes/accountRoute');
-const accountController = require('./controllers/accountController');
+const bookRoute = require('./routes/bookRoute');
 const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
 
@@ -82,7 +84,8 @@ app.use("/inv", require("./routes/inventoryRoute"));
 //Account routes
 app.use("/account", require("./routes/accountRoute"));
 
-
+//Book routes
+app.use("/book", require("./routes/bookRoute"));
 
 //File Not Found Route- must be last route in list
 app.use((req, res, next) => {

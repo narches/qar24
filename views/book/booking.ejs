@@ -1,0 +1,45 @@
+
+
+
+<h4><%- messages() %></h4>
+<br>
+<!-- Display errors if needed -->
+<% if (errors) { %>
+    <ul class="notice">
+ <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+<%  }) %>
+   </ul>
+<% } %>
+
+<br>
+<br>
+
+
+<% if (title) { %>
+    <h2><%= title %></h2>
+<% } else {res.redirect('/')} %>
+
+
+
+<form id="bookForm" action="/book/booked" method="post">
+    <fieldset>
+        <br>
+        <label class="top">  Name* <input type="text" id="book_name" name="book_name" required value="<%= locals.book_name %>"></label>
+
+        <label for="classificationList" class="top">Vehicle Class
+            <%- classificationLists %>
+        </label>
+
+        <label class="top">  Start Date* <input type="date" id="book_date" name="start_date" required minlength="4" maxlength="10" <% if(locals.book_date) { %> value="<%= locals.book_date %>"
+            <% } %>></label>
+
+        <label class="top">  End Date* <input type="date" id="book_date" name="end_date" required minlength="4" maxlength="10" <% if(locals.book_date) { %> value="<%= locals.book_date %>"
+                <% } %>></label>
+        <br>
+
+    </fieldset>
+    <br>
+    <input type="submit" value=" Book " class="submitBtn">
+    <br>
+</form>
